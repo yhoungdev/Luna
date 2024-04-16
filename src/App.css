@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,12 +9,33 @@
 }
 
 :root {
-    --defaultBackground: #000000;
-    --secondary: #212529;
-    --accent: purple;
+  --defaultBackground: #000000;
+  --secondary: #212529;
+  --accent: purple;
 }
 
 body {
   background: var(--defaultBackground);
   color: aliceblue;
+}
+
+.hero-grad {
+  background: linear-gradient(
+    180deg,
+    #f7f8f800 0%,
+    rgba(5, 38, 104, 0.7) 89.38%
+  );
+}
+
+.gradient-text {
+  font-weight: 600;
+  background: linear-gradient(
+    180deg,
+    #f7f8f8 0%,
+    rgba(141, 167, 218, 0.7) 89.38%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }

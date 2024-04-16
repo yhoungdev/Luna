@@ -1,13 +1,40 @@
+import { FC } from "react";
+import Button from "../ui/button";
+import Input from "../ui/input";
+import Typography from "../ui/typography";
 
-const HomeHeroSection = () => {
+const HomeHeroSection: FC = (): JSX.Element => {
   return (
-    <div className="container h-[80vh] items-center justify-center 
-        flex ">
-        <div >
-         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium totam ab cum expedita inventore ipsa quidem quibusdam quas aliquid esse beatae laborum distinctio ea, ullam quia ut corrupti corporis nobis.
-        </div>
-    </div>
-  )
-}
+    <div className="hero-grad">
+      <div
+        className="container h-[85vh] md:h-[90vh] 
+   items-center justify-center 
+        flex "
+      >
+        <div
+          className="w-full md:w-[50%] 
+        mx-auto flex justify-center"
+        >
+          <div className="w-full">
+            <center>
+              <Typography className="md:text-5xl">Rug Checker</Typography>
 
-export default HomeHeroSection
+              <p className=" mt-3 text-lg md:text-2xl">
+                Check Solana token markets
+              </p>
+            </center>
+
+            <Input placeholder="Token Address" className="w-full" />
+            <center>
+              <Button className=" mt-4 w-full md:w-[400px] mx-auto">
+                Check
+              </Button>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomeHeroSection;

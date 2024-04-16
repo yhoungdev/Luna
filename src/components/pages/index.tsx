@@ -1,14 +1,14 @@
-import React from 'react'
-import { Header } from '../layout/header'
-import HomeHeroSection from '../sections/homeHeroSection'
+import React from "react";
+import { Header } from "../layout/header";
+import HomeHeroSection from "../sections/homeHeroSection";
 
 const IndexHompege = () => {
   return (
     <>
-        <Header/>
-        <HomeHeroSection/>
+      <Header />
+      <HomeHeroSection />
     </>
-  )
-}
+  );
+};
 
-export default IndexHompege
+export default IndexHompege;

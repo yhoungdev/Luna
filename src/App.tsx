@@ -1,12 +1,12 @@
-import './App.css'
-import IndexHompege from './components/pages'
+import "./App.css";
+import IndexHompege from "./components/pages";
 
 function App() {
   return (
     <>
-      <IndexHompege/>
+      <IndexHompege />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
