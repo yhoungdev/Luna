@@ -1,0 +1,21 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+    --defaultBackground: #000000;
+    --secondary: #212529;
+    --accent: purple;
+}
+
+body {
+  background: var(--defaultBackground);
+  color: aliceblue;
+}
