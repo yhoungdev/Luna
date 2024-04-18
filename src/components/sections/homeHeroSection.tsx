@@ -3,7 +3,9 @@ import Button from "../ui/button";
 import Input from "../ui/input";
 import Typography from "../ui/typography";
 
+
 const HomeHeroSection: FC = (): JSX.Element => {
+  
   return (
     <div className="hero-grad">
       <div
