@@ -1,4 +1,3 @@
-import React from "react";
 import { Header } from "../layout/header";
 import HomeHeroSection from "../sections/homeHeroSection";
 

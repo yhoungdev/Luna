@@ -19,7 +19,7 @@ const HomeHeroSection: FC = (): JSX.Element => {
             <center>
               <Typography className="md:text-5xl">Rug Checker</Typography>
 
-              <p className=" mt-3 text-lg md:text-2xl">
+              <p className=" mt-3 text-lg md:text-2xl font-satoshi">
                 Check Solana token markets
               </p>
             </center>

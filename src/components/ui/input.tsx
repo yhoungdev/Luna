@@ -24,7 +24,6 @@ const Input: React.FC<InputProps> = ({
           className={classProps}
           style={{
             backgroundColor: "transparent",
-            
           }}
           {...props}
         />

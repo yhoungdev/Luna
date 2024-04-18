@@ -1,3 +1,4 @@
+@import url(https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500&f[]=clash-display@500,600,700&display=swap);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,11 +13,18 @@
   --defaultBackground: #000000;
   --secondary: #212529;
   --accent: purple;
+  --fontPrimary: "Satoshi", sans-serif;
+  --fontClasha: "Clash Display", sans-serif;
 }
 
 body {
   background: var(--defaultBackground);
   color: aliceblue;
+  font-family: var(--fontClasha);
+}
+
+.text-satoshi {
+  font-family: var(--fontPrimary);
 }
 
 .hero-grad {
