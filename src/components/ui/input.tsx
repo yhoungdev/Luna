@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({
   className,
   ...props
 }: InputProps) => {
-  const classProps = `border-4 border-gray outline-none
+  const classProps = `border-2 border-gray outline-none
         mt-2  text-white py-3  text-[#586283]
 		 px-5 ${className}`;
   return (

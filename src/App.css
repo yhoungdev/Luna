@@ -12,7 +12,7 @@
 :root {
   --defaultBackground: #000000;
   --secondary: #212529;
-  --accent: purple;
+  --accent: rgb(11, 168, 116);
   --fontPrimary: "Satoshi", sans-serif;
   --fontClasha: "Clash Display", sans-serif;
 }
@@ -31,7 +31,7 @@ body {
   background: linear-gradient(
     180deg,
     #f7f8f800 0%,
-    rgba(5, 38, 104, 0.7) 89.38%
+    rgba(3, 53, 49, 0.7) 89.38%
   );
 }
 
@@ -40,7 +40,7 @@ body {
   background: linear-gradient(
     180deg,
     #f7f8f8 0%,
-    rgba(141, 167, 218, 0.7) 89.38%
+    rgba(141, 218, 212, 0.7) 89.38%
   );
   -webkit-background-clip: text;
   background-clip: text;

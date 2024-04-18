@@ -1,6 +1,7 @@
 import Button from "../ui/button";
 import { FaBars } from "react-icons/fa";
 import { PiWalletLight } from "react-icons/pi";
+import { GrShieldSecurity } from "react-icons/gr";
 type HeaderProps = {
   title: string;
   path: string;
@@ -28,7 +29,9 @@ export const Header = () => {
       container items-center gap-3 justify-between"
     >
       <div>
-        <div>Logo</div>
+        <div>
+          <GrShieldSecurity size={"3em"} />
+        </div>
       </div>
 
       <div className="hidden md:block">
@@ -46,7 +49,10 @@ export const Header = () => {
       </div>
 
       <div>
-        <Button className="hidden items-center gap-2 md:flex"> <PiWalletLight size={'1.5em'} /> Connect Wallet </Button>
+        <Button className="hidden items-center gap-2 md:flex">
+          {" "}
+          <PiWalletLight size={"1.5em"} /> Connect Wallet{" "}
+        </Button>
         <span
           className="block md:hidden w-fit h-fit bg-white px-3 py-3 rounded-full
           cursor-pointer"

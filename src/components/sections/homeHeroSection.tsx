@@ -12,10 +12,19 @@ const HomeHeroSection: FC = (): JSX.Element => {
         flex "
       >
         <div
-          className="w-full md:w-[50%] 
+          className="w-full md:w-[40%] 
         mx-auto flex justify-center"
         >
           <div className="w-full">
+            <div
+              className="py-2 md:py-2 mx-auto  mb-5  flex items-center gap-3
+					rounded-full bg-[#FFFFFF1A] w-[fit-content] px-3 md:px-[1.4em]"
+            >
+              <span className="bg-[#FFFFFF1A] hidden md:flex px-6 py-2 rounded-full  items-center">
+                🎉
+              </span>
+              <p className="text-xs md:text-sm"> Check Token rugpull market</p>
+            </div>
             <center>
               <Typography className="md:text-5xl">Rug Checker</Typography>
 

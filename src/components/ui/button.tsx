@@ -17,8 +17,8 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }): React.JSX.Element => {
   const classStyle = ` my-1 hover:bg-accent
-     text-white border-4
-     font-bold py-3 px-[2em] rounded-sm 
+     text-white 
+     font-bold py-4 px-[2em] rounded-full 
     shadow-lg focus:outline-none focus:shadow-outline
     ${className || ""}`;
   return (
