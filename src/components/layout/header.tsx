@@ -1,25 +1,25 @@
 import Button from "../ui/button";
 import { FaBars } from "react-icons/fa";
 import { PiWalletLight } from "react-icons/pi";
-import { GrShieldSecurity } from "react-icons/gr";
+import Logo from "../misc/logo";
 type HeaderProps = {
   title: string;
   path: string;
 };
 
 const headerUrl: HeaderProps[] = [
-  {
-    title: "Home",
-    path: "/",
-  },
-  {
-    title: "Tokens",
-    path: "/",
-  },
-  {
-    title: "Leaderboard",
-    path: "/",
-  },
+  // {
+  //   title: "Home",
+  //   path: "/",
+  // },
+  // {
+  //   title: "Tokens",
+  //   path: "/",
+  // },
+  // {
+  //   title: "Leaderboard",
+  //   path: "/",
+  // },
 ];
 
 export const Header = () => {
@@ -30,7 +30,7 @@ export const Header = () => {
     >
       <div>
         <div>
-          <GrShieldSecurity size={"3em"} />
+          <Logo/>
         </div>
       </div>
 
