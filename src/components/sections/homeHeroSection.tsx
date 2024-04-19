@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
@@ -6,8 +8,9 @@ import {useNavigate} from '@tanstack/react-router'
 
 const HomeHeroSection: FC = (): JSX.Element => {
 
-  const navigate = useNavigate();
+  const navigate = useNavigate({from: '/'});
 
+  //@ts-ignore
   const [ tokenAddress , setTokenAddress] = useState<string>("");
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,9 +21,9 @@ const HomeHeroSection: FC = (): JSX.Element => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
-      to: "/tokens",
-      params: {tokenAddress}
-    })
+      to: "/check-token",
+      params:{}
+     })
 
   }
 

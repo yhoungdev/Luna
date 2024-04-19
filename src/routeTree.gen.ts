@@ -13,8 +13,9 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as TokensImport } from './routes/tokens'
 import { Route as LeaderboardImport } from './routes/leaderboard'
+import { Route as CheckTokenImport } from './routes/check-token'
 import { Route as IndexImport } from './routes/index'
-import { Route as TokensidIndexImport } from './routes/tokens/[id]/index'
+import { Route as TokensIndexImport } from './routes/tokens/index'
 
 // Create/Update Routes
 
@@ -28,13 +29,18 @@ const LeaderboardRoute = LeaderboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const CheckTokenRoute = CheckTokenImport.update({
+  path: '/check-token',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const TokensidIndexRoute = TokensidIndexImport.update({
-  path: '/[id]/',
+const TokensIndexRoute = TokensIndexImport.update({
+  path: '/',
   getParentRoute: () => TokensRoute,
 } as any)
 
@@ -46,6 +52,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/check-token': {
+      preLoaderRoute: typeof CheckTokenImport
+      parentRoute: typeof rootRoute
+    }
     '/leaderboard': {
       preLoaderRoute: typeof LeaderboardImport
       parentRoute: typeof rootRoute
@@ -54,8 +64,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TokensImport
       parentRoute: typeof rootRoute
     }
-    '/tokens/[id]/': {
-      preLoaderRoute: typeof TokensidIndexImport
+    '/tokens/': {
+      preLoaderRoute: typeof TokensIndexImport
       parentRoute: typeof TokensImport
     }
   }
@@ -65,8 +75,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
+  CheckTokenRoute,
   LeaderboardRoute,
-  TokensRoute.addChildren([TokensidIndexRoute]),
+  TokensRoute.addChildren([TokensIndexRoute]),
 ])
 
 /* prettier-ignore-end */
