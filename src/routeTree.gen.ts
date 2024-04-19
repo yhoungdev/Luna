@@ -10,39 +10,53 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as TokensImport } from './routes/tokens'
-import { Route as LeaderboardImport } from './routes/leaderboard'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as TokensImport } from "./routes/tokens";
+import { Route as LeaderboardImport } from "./routes/leaderboard";
+import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
 
 const TokensRoute = TokensImport.update({
-  path: '/tokens',
+  path: "/tokens",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const LeaderboardRoute = LeaderboardImport.update({
-  path: '/leaderboard',
+  path: "/leaderboard",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const IndexRoute = IndexImport.update({
+  path: "/",
+  getParentRoute: () => rootRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/leaderboard': {
-      preLoaderRoute: typeof LeaderboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/tokens': {
-      preLoaderRoute: typeof TokensImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/leaderboard": {
+      preLoaderRoute: typeof LeaderboardImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/tokens": {
+      preLoaderRoute: typeof TokensImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([LeaderboardRoute, TokensRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  LeaderboardRoute,
+  TokensRoute,
+]);
 
 /* prettier-ignore-end */

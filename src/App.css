@@ -10,7 +10,7 @@
 }
 
 :root {
-  --defaultBackground: #000000;
+  --defaultBackground: #070913;
   --secondary: #212529;
   --accent: rgb(11, 168, 116);
   --fontPrimary: "Satoshi", sans-serif;
@@ -25,6 +25,10 @@ body {
 
 .text-satoshi {
   font-family: var(--fontPrimary);
+}
+
+.default-font {
+  font-family: var(--fontClasha);
 }
 
 .hero-grad {

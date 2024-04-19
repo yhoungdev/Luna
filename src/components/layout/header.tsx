@@ -3,7 +3,7 @@ import { FaBars } from "react-icons/fa";
 import { PiWalletLight } from "react-icons/pi";
 import Logo from "../misc/logo";
 import { useState } from "react";
-// import { useWallet } from "@solana/wallet-adapter-react";
+import { Link } from "@tanstack/react-router";
 
 type HeaderProps = {
   title: string;
@@ -17,7 +17,7 @@ const headerUrl: HeaderProps[] = [
   },
   {
     title: "Tokens",
-    path: "/",
+    path: "/tokens",
   },
   // {
   //   title: "Leaderboard",
@@ -40,9 +40,14 @@ const SidePanel = ({ onClose }: { onClose: () => void }) => {
       <div className="p-5 flex items-center text-center justify-center ">
         <ul>
           {headerUrl.map((data, index) => (
-            <li key={index} className="cursor-pointer text-gray-400 my-2 py-5">
-              {data.title}
-            </li>
+            <Link to={data.path}>
+              <li
+                key={index}
+                className="cursor-pointer text-gray-400 my-2 py-5"
+              >
+                {data.title}
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -83,14 +88,15 @@ export const Header = () => {
 
         <div className="hidden md:block">
           <ul className="flex items-center  gap-5">
-            {headerUrl.map(({ title }, key) => (
-              <li
-                key={key}
-                className="cursor-pointer text-gray-600 
+            {headerUrl.map((data, key) => (
+              <Link to={data.path} key={key}>
+                <li
+                  className="cursor-pointer text-gray-600 
               hover:text-white"
-              >
-                {title}
-              </li>
+                >
+                  {data.title}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>

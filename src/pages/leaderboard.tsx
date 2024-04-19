@@ -1,8 +1,5 @@
-
 const LeaderBoardPage = () => {
-  return (
-    <div>LeaderBoardPage</div>
-  )
-}
+  return <div>LeaderBoardPage</div>;
+};
 
-export default LeaderBoardPage
+export default LeaderBoardPage;

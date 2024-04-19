@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
-import LeaderBoardPage from '../pages/leaderboard'
+import { createFileRoute } from "@tanstack/react-router";
+import LeaderBoardPage from "../pages/leaderboard";
 
-export const Route = createFileRoute('/leaderboard')({
-  component: () => <LeaderBoardPage/>
-})
+export const Route = createFileRoute("/leaderboard")({
+  component: () => <LeaderBoardPage />,
+});
