@@ -1,3 +1,5 @@
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { ReactNode } from "@tanstack/react-router";
 import React, { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -36,5 +38,25 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+const ConnectWalletButton = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
+  return (
+    <WalletMultiButton
+      style={{
+        backgroundColor: "var(--accent)",
+        borderRadius: "2em",
+        padding: "1.6em",
+      }}
+    >
+      {children}
+    </WalletMultiButton>
+  );
+};
+
+export { ConnectWalletButton };
 
 export default Button;

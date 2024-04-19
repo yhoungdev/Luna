@@ -1,8 +1,10 @@
-import Button from "../ui/button";
+import { ConnectWalletButton } from "../ui/button";
 import { FaBars } from "react-icons/fa";
 import { PiWalletLight } from "react-icons/pi";
 import Logo from "../misc/logo";
 import { useState } from "react";
+// import { useWallet } from "@solana/wallet-adapter-react";
+
 type HeaderProps = {
   title: string;
   path: string;
@@ -46,7 +48,11 @@ const SidePanel = ({ onClose }: { onClose: () => void }) => {
       </div>
 
       <center>
-        <Button>Connect Wallet</Button>
+        <ConnectWalletButton>
+          <div className="flex items-center gap-2">
+            <PiWalletLight size={"1.5em"} /> Connect Wallet
+          </div>
+        </ConnectWalletButton>
       </center>
     </div>
   );
@@ -90,10 +96,14 @@ export const Header = () => {
         </div>
 
         <div>
-          <Button className="hidden items-center gap-2 md:flex">
-            {" "}
-            <PiWalletLight size={"1.5em"} /> Connect Wallet{" "}
-          </Button>
+          <div className="hidden md:block">
+            <ConnectWalletButton>
+              <div className="flex items-center gap-2">
+                <PiWalletLight size={"1.5em"} /> Connect Wallet
+              </div>
+            </ConnectWalletButton>
+          </div>
+
           <span
             className="block md:hidden w-fit h-fit bg-white px-3 py-3 rounded-full
           cursor-pointer"
