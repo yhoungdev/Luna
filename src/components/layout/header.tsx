@@ -4,6 +4,7 @@ import { PiWalletLight } from "react-icons/pi";
 import Logo from "../misc/logo";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 type HeaderProps = {
   title: string;
@@ -65,6 +66,7 @@ const SidePanel = ({ onClose }: { onClose: () => void }) => {
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { connected , disconnect} = useWallet();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -73,6 +75,9 @@ export const Header = () => {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
+
+  const disconnectWallet = () =>  disconnect();
+
 
   return (
     <>
@@ -103,11 +108,23 @@ export const Header = () => {
 
         <div>
           <div className="hidden md:block">
-            <ConnectWalletButton>
-              <div className="flex items-center gap-2">
-                <PiWalletLight size={"1.5em"} /> Connect Wallet
+            {connected ? (
+              <div>
+                <div
+                  className="flex items-center gap-2 bg-gray-800
+                   py-3 px-4 rounded-lg cursor-pointer"
+                   onClick={disconnectWallet}
+                >
+                  <PiWalletLight size={"1.5em"} /> Address
+                </div>
               </div>
-            </ConnectWalletButton>
+            ) : (
+              <ConnectWalletButton>
+                <div className="flex items-center gap-2">
+                  <PiWalletLight size={"1.5em"} /> Connect Wallet
+                </div>
+              </ConnectWalletButton>
+            )}
           </div>
 
           <span

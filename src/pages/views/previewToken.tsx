@@ -14,16 +14,15 @@ const PreviewTokenPage = () => {
 
           <div className="mt-4">
             <div className="flex flex-col md:flex-row items-center gap-5 md:gap-[2em] w-full">
-            <Card title="📦 Token Overview" className="w-full">
-              <FallBackMessage />
-            </Card>
+              <Card title="📦 Token Overview" className="w-full">
+                <FallBackMessage />
+              </Card>
 
-            <Card title="📊 Risk Analytics " className="w-full">
-              <FallBackMessage />
-            </Card>
+              <Card title="📊 Risk Analytics " className="w-full">
+                <FallBackMessage />
+              </Card>
             </div>
           </div>
-
 
           <div className="mt-5">
             <Card title="🪙 Token Market">

@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div>
       <Link to="/">
-       <img src="/logo.png" alt="logo" width={80} />
+        <img src="/logo.png" alt="logo" width={80} />
       </Link>
     </div>
   );

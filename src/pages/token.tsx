@@ -7,8 +7,10 @@ const TokensPage = () => {
     <>
       <Header />
       <div className="w-full h-full py-[5em] ">
-          <FallBackMessage title="Failed to Load Tokens"
-            description="Trying to Load Tokens please wait..."/>
+        <FallBackMessage
+          title="Failed to Load Tokens"
+          description="Trying to Load Tokens please wait..."
+        />
       </div>
     </>
   );

@@ -10,44 +10,54 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as TokensImport } from "./routes/tokens";
-import { Route as LeaderboardImport } from "./routes/leaderboard";
-import { Route as IndexImport } from "./routes/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as TokensImport } from './routes/tokens'
+import { Route as LeaderboardImport } from './routes/leaderboard'
+import { Route as IndexImport } from './routes/index'
+import { Route as TokensidIndexImport } from './routes/tokens/[id]/index'
 
 // Create/Update Routes
 
 const TokensRoute = TokensImport.update({
-  path: "/tokens",
+  path: '/tokens',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const LeaderboardRoute = LeaderboardImport.update({
-  path: "/leaderboard",
+  path: '/leaderboard',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
-  path: "/",
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const TokensidIndexRoute = TokensidIndexImport.update({
+  path: '/[id]/',
+  getParentRoute: () => TokensRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/leaderboard": {
-      preLoaderRoute: typeof LeaderboardImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/tokens": {
-      preLoaderRoute: typeof TokensImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/leaderboard': {
+      preLoaderRoute: typeof LeaderboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/tokens': {
+      preLoaderRoute: typeof TokensImport
+      parentRoute: typeof rootRoute
+    }
+    '/tokens/[id]/': {
+      preLoaderRoute: typeof TokensidIndexImport
+      parentRoute: typeof TokensImport
+    }
   }
 }
 
@@ -56,7 +66,7 @@ declare module "@tanstack/react-router" {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   LeaderboardRoute,
-  TokensRoute,
-]);
+  TokensRoute.addChildren([TokensidIndexRoute]),
+])
 
 /* prettier-ignore-end */

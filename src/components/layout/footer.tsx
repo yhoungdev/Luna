@@ -1,8 +1,9 @@
-
 const Footer = () => {
   return (
-    <div className="bg-none">All Rights reserved Luna {new Date().getFullYear()}</div>
-  )
-}
+    <div className="bg-none">
+      All Rights reserved Luna {new Date().getFullYear()}
+    </div>
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,9 +1,29 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
 import Typography from "../ui/typography";
+import {useNavigate} from '@tanstack/react-router'
 
 const HomeHeroSection: FC = (): JSX.Element => {
+
+  const navigate = useNavigate();
+
+  const [ tokenAddress , setTokenAddress] = useState<string>("");
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTokenAddress(e.target.value.trim());
+  }
+
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate({
+      to: "/tokens",
+      params: {tokenAddress}
+    })
+
+  }
+
   return (
     <div className="hero-grad">
       <div
@@ -33,12 +53,16 @@ const HomeHeroSection: FC = (): JSX.Element => {
               </p>
             </center>
 
-            <Input placeholder="Token Address" className="w-full" />
+            <form onSubmit={handleSubmit}>
+            <Input placeholder="Token Address" 
+              className="w-full" required 
+              onChange={value => handleAddressChange(value)}/>
             <center>
-              <Button className=" mt-4 w-full md:w-[400px] mx-auto">
+              <Button type="submit" className=" mt-4 w-full md:w-[400px] mx-auto">
                 Check
               </Button>
             </center>
+            </form>
           </div>
         </div>
       </div>
