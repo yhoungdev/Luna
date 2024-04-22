@@ -66,7 +66,7 @@ const SidePanel = ({ onClose }: { onClose: () => void }) => {
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { connected , disconnect} = useWallet();
+  const { connected, disconnect } = useWallet();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -76,8 +76,7 @@ export const Header = () => {
     setIsSidebarOpen(false);
   };
 
-  const disconnectWallet = () =>  disconnect();
-
+  const disconnectWallet = () => disconnect();
 
   return (
     <>
@@ -113,7 +112,7 @@ export const Header = () => {
                 <div
                   className="flex items-center gap-2 bg-gray-800
                    py-3 px-4 rounded-lg cursor-pointer"
-                   onClick={disconnectWallet}
+                  onClick={disconnectWallet}
                 >
                   <PiWalletLight size={"1.5em"} /> Address
                 </div>

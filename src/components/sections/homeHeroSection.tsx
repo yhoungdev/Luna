@@ -4,28 +4,25 @@ import { FC, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
 import Typography from "../ui/typography";
-import {useNavigate} from '@tanstack/react-router'
+import { useNavigate } from "@tanstack/react-router";
 
 const HomeHeroSection: FC = (): JSX.Element => {
-
-  const navigate = useNavigate({from: '/'});
+  const navigate = useNavigate({ from: "/" });
 
   //@ts-ignore
-  const [ tokenAddress , setTokenAddress] = useState<string>("");
+  const [tokenAddress, setTokenAddress] = useState<string>("");
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTokenAddress(e.target.value.trim());
-  }
-
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
       to: "/check-token",
-      params:{}
-     })
-
-  }
+      params: {},
+    });
+  };
 
   return (
     <div className="hero-grad">
@@ -57,14 +54,20 @@ const HomeHeroSection: FC = (): JSX.Element => {
             </center>
 
             <form onSubmit={handleSubmit}>
-            <Input placeholder="Token Address" 
-              className="w-full" required 
-              onChange={value => handleAddressChange(value)}/>
-            <center>
-              <Button type="submit" className=" mt-4 w-full md:w-[400px] mx-auto">
-                Check
-              </Button>
-            </center>
+              <Input
+                placeholder="Token Address"
+                className="w-full"
+                required
+                onChange={(value) => handleAddressChange(value)}
+              />
+              <center>
+                <Button
+                  type="submit"
+                  className=" mt-4 w-full md:w-[400px] mx-auto"
+                >
+                  Check
+                </Button>
+              </center>
             </form>
           </div>
         </div>
