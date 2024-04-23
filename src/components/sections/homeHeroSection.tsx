@@ -20,7 +20,9 @@ const HomeHeroSection: FC = (): JSX.Element => {
     e.preventDefault();
     navigate({
       to: "/check-token",
-      params: {},
+      search: {
+        token: tokenAddress,
+      },
     });
   };
 
