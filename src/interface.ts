@@ -8,8 +8,11 @@ export interface ITokenOverview {
   Decimals: number;
 }
 
+export interface ITokenHolderData {
+  data: ITokenHolderData[];
+}
 export interface ITokenHolders {
   address: string;
-  uiAmount: number | bigint;
-  percentage: unknown;
+  uiAmount: Float32Array;
+  percentage: Float32Array;
 }
