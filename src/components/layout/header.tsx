@@ -12,14 +12,14 @@ type HeaderProps = {
 };
 
 const headerUrl: HeaderProps[] = [
-  {
-    title: "Home",
-    path: "/",
-  },
-  {
-    title: "Tokens",
-    path: "/tokens",
-  },
+  // {
+  //   title: "Home",
+  //   path: "/",
+  // },
+  // {
+  //   title: "Tokens",
+  //   path: "/tokens",
+  // },
   // {
   //   title: "Leaderboard",
   //   path: "/",

@@ -125,14 +125,8 @@ const PreviewTokenPage = () => {
             <div className=" w-full md:w-[55%]">
               <Card title="🪙 Token Market Data">
                 {/* {isError && <FallBackMessage />} */}
-                <div className="flex imtes-center gap-3 flex-col text-center">
-                  <div className="bg-text-white bg-red-900 px-4 rounded py-2 font-semibol ">
-                    Low Liquidy Provider
-                  </div>
-                  <div className="bg-text-white bg-green-900 px-4 rounded py-2 font-semibol ">
-                    Low Liquidy Provider
-                  </div>
-                </div>
+                  <FallBackMessage description="Sorry cant load market data at the momemt" 
+                    refetchData={() => {}}/>
               </Card>
             </div>
 
