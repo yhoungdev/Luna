@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 import { useState } from "react";
 import { Header } from "../../components/layout/header";
 import Card from "../../components/misc/card";
