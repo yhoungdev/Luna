@@ -7,10 +7,11 @@ import FallBackMessage from "../../components/misc/fallbacks/isError";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ITokenHolders, ITokenOverview } from "../../interface";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 import numeral from "numeral";
 import IsSkeletonLoader from "../../components/misc/fallbacks/isSkeletonLoading";
+import { axiosInstance } from "../../axiosInstance";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
@@ -28,24 +29,36 @@ const PreviewTokenPage = () => {
   };
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["token-information"],
+    queryKey: ["fetch-all-token-utils"],
     queryFn: fetchAllRequest,
   });
 
   const tokenOverviewResponse = data?.tokenOverview;
   const tokenHoldersResponse = data?.tokenHolders;
 
-  //handle voting
-
   const castTokenVote = async (value: boolean) => {
     try {
       setIsVoting(true);
+      const requestVote = await axiosInstance("/vote", {
+        token_address: "",
+        wallet_address: "",
+        vote: value,
+      });
+      return requestVote;
     } catch (err) {
-      const errMsg = err;
+      const errMsg = err?.response?.message || err.message;
+      return errMsg;
     } finally {
       setIsVoting(false);
     }
   };
+
+  const handlePromiseOnVote = () =>
+    toast.promise(castTokenVote(true), {
+      pending: "Castnig vote",
+      success: "Vote successful",
+      error: "Vote failed",
+    });
 
   return (
     <>
@@ -103,21 +116,28 @@ const PreviewTokenPage = () => {
 
               <Card title="📊 Community Sentiment " className="w-full">
                 {/* {isError && <FallBackMessage />} */}
-                <div className="flex imtes-center gap-3 flex-col text-center">
-                  <div
-                    className="bg-text-white bg-red-900 px-4 
+
+                {!isVoting ? (
+                  <div className="flex imtes-center gap-3 flex-col text-center">
+                    <div
+                      className="bg-text-white bg-red-900 px-4 
                     cursor-pointer rounded py-5 font-bold font-semibol "
-                    onClick={() => castTokenVote(false)}
-                  >
-                    Red Flag 🚩
+                      onClick={() => handlePromiseOnVote()}
+                    >
+                      Red Flag 🚩
+                    </div>
+                    <div
+                      className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
+                      onClick={() => castTokenVote(true)}
+                    >
+                      Bullish 🚀
+                    </div>
                   </div>
-                  <div
-                    className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
-                    onClick={() => castTokenVote(true)}
-                  >
-                    Bullish 🚀
-                  </div>
-                </div>
+                ) : (
+                  <h1 className="align-center mt-5 font-bold">
+                    Voing in Progress
+                  </h1>
+                )}
               </Card>
             </div>
           </div>
@@ -126,8 +146,10 @@ const PreviewTokenPage = () => {
             <div className=" w-full md:w-[55%]">
               <Card title="🪙 Token Market Data">
                 {/* {isError && <FallBackMessage />} */}
-                  <FallBackMessage description="Sorry cant load market data at the momemt" 
-                    refetchData={() => {}}/>
+                <FallBackMessage
+                  description="Sorry cant load market data at the momemt"
+                  refetchData={() => {}}
+                />
               </Card>
             </div>
 
@@ -161,7 +183,7 @@ const PreviewTokenPage = () => {
                             {Number(value?.percentage).toFixed(3)}
                           </h1>{" "}
                           <h1 className="font-bold">
-                            ${" "}{numeral(value?.uiAmount).format("0, 0a")}
+                            $ {numeral(value?.uiAmount).format("0, 0a")}
                           </h1>{" "}
                         </div>
                       );

@@ -12,7 +12,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={new QueryClient()}>
       <WalletAdapter>
         <App />
-        <ToastContainer />
+        <ToastContainer
+         
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          theme="dark"
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </WalletAdapter>
     </QueryClientProvider>
   </React.StrictMode>,

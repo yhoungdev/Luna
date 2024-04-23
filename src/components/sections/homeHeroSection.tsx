@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
@@ -9,21 +7,32 @@ import { useNavigate } from "@tanstack/react-router";
 const HomeHeroSection: FC = (): JSX.Element => {
   const navigate = useNavigate({ from: "/" });
 
-  //@ts-ignore
   const [tokenAddress, setTokenAddress] = useState<string>("");
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTokenAddress(e.target.value.trim());
+    const inputValue = e.target.value.trim();
+    const addressRegex = /^[A-Za-z0-9]{44}$/;
+    if (addressRegex.test(inputValue)) {
+      setTokenAddress(inputValue);
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({
-      to: "/check-token",
-      search: {
-        token: tokenAddress,
-      },
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate({
+        to: "/check-token",
+        search: {
+          token: tokenAddress,
+        },
+      });
+    }, 1500);
   };
 
   return (
@@ -66,8 +75,9 @@ const HomeHeroSection: FC = (): JSX.Element => {
                 <Button
                   type="submit"
                   className=" mt-4 w-full md:w-[400px] mx-auto"
+                  isDisabled={isDisabled}
                 >
-                  Check
+                  {isLoading ? "Checking..." : "Check"}
                 </Button>
               </center>
             </form>

@@ -1,6 +1,6 @@
 import { Header } from "../components/layout/header";
 // import Card from "../components/misc/card";
-import FallBackMessage from "../components/misc/fallbacks/isError";
+// import FallBackMessage from "../components/misc/fallbacks/isError";
 import { CHECKEDICON, DUSTICON } from "../constants";
 
 {

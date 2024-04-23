@@ -5,14 +5,14 @@ interface IFallbackProps {
   icon?: JSX.Element;
   title?: string;
   description?: string;
-  refetchData?: () => void
+  refetchData?: () => void;
 }
 
 const FallBackMessage: FC<IFallbackProps> = ({
   icon,
   title,
   description,
-  refetchData
+  refetchData,
 }): JSX.Element => {
   return (
     <div className="text-center">
@@ -22,11 +22,13 @@ const FallBackMessage: FC<IFallbackProps> = ({
         {title || "An Error Occured"}
       </h1>
       <small className="text-gray-400">{description}</small>
-      {
-        refetchData && <center>
-        <Button className="py-[9px] mt-4" onClick={refetchData}>Relpoad</Button>
-      </center>
-      }
+      {refetchData && (
+        <center>
+          <Button className="py-[9px] mt-4" onClick={refetchData}>
+            Relpoad
+          </Button>
+        </center>
+      )}
     </div>
   );
 };
