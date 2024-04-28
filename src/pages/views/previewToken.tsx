@@ -18,10 +18,10 @@ const PreviewTokenPage = () => {
 
   const fetchAllRequest = async () => {
     const tokenHoldersResponse = await axiosInstance<ITokenHolders>(
-      `/${searchParams}`,
+      `/v3/token-holders/?token=${searchParams}`,
     );
     const tokenDataResponse = await axiosInstance<ITokenOverview>(
-      `${searchParams}`,
+      `/v2/token/${searchParams}`,
     );
     return {
       tokenHolders: tokenHoldersResponse?.data,
@@ -69,7 +69,7 @@ const PreviewTokenPage = () => {
           <div className="flex items-center justify-between w-full">
             <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
               {isLoading && <IsSkeletonLoader count={1} />}
-              {isError && "Failed to Load Name"}
+              {isError && 'Failed to Load Name'}
               {data && tokenOverviewResponse?.Name}
             </h1>
           </div>
@@ -120,35 +120,31 @@ const PreviewTokenPage = () => {
               <Card title="📊 Community Sentiment " className="w-full">
                 {/* {isError && <FallBackMessage />} */}
 
-                {isError ? (
-                  <IsSkeletonLoader />
-                ) : isError ? (
-                  <FallBackMessage />
-                ) : (
-                  <div>
-                    {!isVoting ? (
-                      <div className="flex imtes-center gap-3 flex-col text-center">
-                        <div
-                          className="bg-text-white bg-red-900 px-4 
+              {
+                isError ? <IsSkeletonLoader/> :  isError  ? <FallBackMessage/> :  <div>
+                {!isVoting ? (
+                   <div className="flex imtes-center gap-3 flex-col text-center">
+                     <div
+                       className="bg-text-white bg-red-900 px-4 
                      cursor-pointer rounded py-5 font-bold font-semibol "
-                          onClick={() => handlePromiseOnVote()}
-                        >
-                          Red Flag 🚩
-                        </div>
-                        <div
-                          className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
-                          onClick={() => castTokenVote(true)}
-                        >
-                          Bullish 🚀
-                        </div>
-                      </div>
-                    ) : (
-                      <h1 className="align-center mt-5 font-bold">
-                        Voing in Progress
-                      </h1>
-                    )}
-                  </div>
-                )}
+                       onClick={() => handlePromiseOnVote()}
+                     >
+                       Red Flag 🚩
+                     </div>
+                     <div
+                       className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
+                       onClick={() => castTokenVote(true)}
+                     >
+                       Bullish 🚀
+                     </div>
+                   </div>
+                 ) : (
+                   <h1 className="align-center mt-5 font-bold">
+                     Voing in Progress
+                   </h1>
+                 )}
+                </div>
+              }
               </Card>
             </div>
           </div>
