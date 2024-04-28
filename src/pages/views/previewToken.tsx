@@ -5,7 +5,6 @@ import { Header } from "../../components/layout/header";
 import Card from "../../components/misc/card";
 import FallBackMessage from "../../components/misc/fallbacks/isError";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { ITokenHolders, ITokenOverview } from "../../interface";
 import { toast } from "react-toastify";
 
@@ -15,12 +14,14 @@ import { axiosInstance } from "../../axiosInstance";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
+  const searchParams: string = window.location.search.split("=")[1];
 
   const fetchAllRequest = async () => {
-    const tokenHoldersResponse =
-      await axios<ITokenHolders>("/data/holders.json");
-    const tokenDataResponse = await axios<ITokenOverview>(
-      "/data/overview.json",
+    const tokenHoldersResponse = await axiosInstance<ITokenHolders>(
+      `/${searchParams}`,
+    );
+    const tokenDataResponse = await axiosInstance<ITokenOverview>(
+      `${searchParams}`,
     );
     return {
       tokenHolders: tokenHoldersResponse?.data,
@@ -65,9 +66,11 @@ const PreviewTokenPage = () => {
       <Header />
       <div className="w-full h-full ">
         <div className="container py-[1em]">
-          <div className="flex items-center justify-between">
-            <h1 className="gradient-text text-2xl md:text-4xl">
-              {tokenOverviewResponse?.Name ?? <IsSkeletonLoader count={1} />}
+          <div className="flex items-center justify-between w-full">
+            <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
+              {isLoading && <IsSkeletonLoader count={1} />}
+              {isError && "Failed to Load Name"}
+              {data && tokenOverviewResponse?.Name}
             </h1>
           </div>
 
@@ -117,26 +120,34 @@ const PreviewTokenPage = () => {
               <Card title="📊 Community Sentiment " className="w-full">
                 {/* {isError && <FallBackMessage />} */}
 
-                {!isVoting ? (
-                  <div className="flex imtes-center gap-3 flex-col text-center">
-                    <div
-                      className="bg-text-white bg-red-900 px-4 
-                    cursor-pointer rounded py-5 font-bold font-semibol "
-                      onClick={() => handlePromiseOnVote()}
-                    >
-                      Red Flag 🚩
-                    </div>
-                    <div
-                      className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
-                      onClick={() => castTokenVote(true)}
-                    >
-                      Bullish 🚀
-                    </div>
-                  </div>
+                {isError ? (
+                  <IsSkeletonLoader />
+                ) : isError ? (
+                  <FallBackMessage />
                 ) : (
-                  <h1 className="align-center mt-5 font-bold">
-                    Voing in Progress
-                  </h1>
+                  <div>
+                    {!isVoting ? (
+                      <div className="flex imtes-center gap-3 flex-col text-center">
+                        <div
+                          className="bg-text-white bg-red-900 px-4 
+                     cursor-pointer rounded py-5 font-bold font-semibol "
+                          onClick={() => handlePromiseOnVote()}
+                        >
+                          Red Flag 🚩
+                        </div>
+                        <div
+                          className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
+                          onClick={() => castTokenVote(true)}
+                        >
+                          Bullish 🚀
+                        </div>
+                      </div>
+                    ) : (
+                      <h1 className="align-center mt-5 font-bold">
+                        Voing in Progress
+                      </h1>
+                    )}
+                  </div>
                 )}
               </Card>
             </div>
@@ -155,41 +166,45 @@ const PreviewTokenPage = () => {
 
             <div className=" w-full md:w-[50%]">
               <Card title="🦈 Token Holders">
-                <div className="flex items-center flex-col justify-between w-full overflow-x-auto h-[300px]">
-                  <div className="flex items-center justify-between w-full mb-4">
-                    <h1 className="font-bold">Address</h1>
-                    <h1 className="font-bold">Percentage</h1>
-                    <h1 className="font-bold">Amount</h1>
-                  </div>
+                {isLoading && <IsSkeletonLoader />}
+                {isError && <FallBackMessage />}
+                {tokenHoldersResponse && (
+                  <div className="flex items-center flex-col justify-between w-full overflow-x-auto h-[300px]">
+                    <div className="flex items-center justify-between w-full mb-4">
+                      <h1 className="font-bold">Address</h1>
+                      <h1 className="font-bold">Percentage</h1>
+                      <h1 className="font-bold">Amount</h1>
+                    </div>
 
-                  {/* @ts-ignore */}
-                  {tokenHoldersResponse?.map(
-                    (value: ITokenHolders, index: number) => {
-                      return (
-                        <div
-                          className="flex text-sm items-center justify-between w-full mt-3"
-                          key={index}
-                        >
-                          <a
-                            href={`https://solana.fm/address/${value?.address}`}
-                            target="_blank"
+                    {/* @ts-ignore */}
+                    {tokenHoldersResponse?.map(
+                      (value: ITokenHolders, index: number) => {
+                        return (
+                          <div
+                            className="flex text-sm items-center justify-between w-full mt-3"
+                            key={index}
                           >
-                            <h1 className="font-semibold text-yellow-500 bg-gray-800 p-1 ">
-                              {value?.address.slice(0, 4)}...
-                              {value?.address.slice(-5)}
-                            </h1>
-                          </a>
-                          <h1 className=" text-left">
-                            {Number(value?.percentage).toFixed(3)}
-                          </h1>{" "}
-                          <h1 className="font-bold">
-                            $ {numeral(value?.uiAmount).format("0, 0a")}
-                          </h1>{" "}
-                        </div>
-                      );
-                    },
-                  )}
-                </div>
+                            <a
+                              href={`https://solana.fm/address/${value?.address}`}
+                              target="_blank"
+                            >
+                              <h1 className="font-semibold text-yellow-500 bg-gray-800 p-1 ">
+                                {value?.address.slice(0, 4)}...
+                                {value?.address.slice(-5)}
+                              </h1>
+                            </a>
+                            <h1 className=" text-left">
+                              {Number(value?.percentage).toFixed(3)}
+                            </h1>{" "}
+                            <h1 className="font-bold">
+                              $ {numeral(value?.uiAmount).format("0, 0a")}
+                            </h1>{" "}
+                          </div>
+                        );
+                      },
+                    )}
+                  </div>
+                )}
               </Card>
             </div>
           </div>

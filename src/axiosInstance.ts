@@ -1,6 +1,7 @@
 import axios from "axios";
+import { DEFAULTURL } from "./constants";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://solana-rugchecker.onrender.com/api/",
+  baseURL: DEFAULTURL,
   withCredentials: true,
 });

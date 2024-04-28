@@ -6,11 +6,13 @@ type TSkeleton = {
 
 const IsSkeletonLoader: FC<TSkeleton> = ({ count }: TSkeleton): JSX.Element => {
   return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
-      <p>
-        <Skeleton count={count ? count : 3} />
-      </p>
-    </SkeletonTheme>
+    <div className="w-full ">
+      <SkeletonTheme baseColor="#202020" highlightColor="#444">
+        <p>
+          <Skeleton count={count ? count : 3} />
+        </p>
+      </SkeletonTheme>
+    </div>
   );
 };
 

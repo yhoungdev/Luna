@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <WalletAdapter>
         <App />
         <ToastContainer
-         
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
