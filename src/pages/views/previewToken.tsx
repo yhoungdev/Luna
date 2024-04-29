@@ -7,7 +7,7 @@ import FallBackMessage from "../../components/misc/fallbacks/isError";
 import { useQuery } from "@tanstack/react-query";
 import { ITokenHolders, ITokenOverview } from "../../interface";
 import { toast } from "react-toastify";
-
+import { useWallet } from "@solana/wallet-adapter-react";
 import numeral from "numeral";
 import IsSkeletonLoader from "../../components/misc/fallbacks/isSkeletonLoading";
 import { axiosInstance } from "../../axiosInstance";
@@ -15,6 +15,7 @@ import { axiosInstance } from "../../axiosInstance";
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
   const searchParams: string = window.location.search.split("=")[1];
+  const walletAddress = useWallet().publicKey?.toString();
 
   const fetchAllRequest = async () => {
     const tokenHoldersResponse = await axiosInstance<ITokenHolders>(
@@ -41,8 +42,8 @@ const PreviewTokenPage = () => {
     try {
       setIsVoting(true);
       const requestVote = await axiosInstance("/vote", {
-        token_address: "",
-        wallet_address: "",
+        token_address: searchParams,
+        wallet_address: walletAddress,
         vote: value,
       });
       return requestVote;

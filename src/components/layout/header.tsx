@@ -67,6 +67,10 @@ const SidePanel = ({ onClose }: { onClose: () => void }) => {
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { connected, disconnect } = useWallet();
+  const wallet = useWallet(); 
+  const getAddress = wallet.publicKey?.toString();
+
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -114,7 +118,7 @@ export const Header = () => {
                    py-3 px-4 rounded-lg cursor-pointer"
                   onClick={disconnectWallet}
                 >
-                  <PiWalletLight size={"1.5em"} /> Address
+                  <PiWalletLight size={"1.5em"} /> <small>{getAddress?.slice(0,4)}......{getAddress?.slice(4,9)}</small>
                 </div>
               </div>
             ) : (
