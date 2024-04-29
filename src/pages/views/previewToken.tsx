@@ -150,9 +150,12 @@ const PreviewTokenPage = () => {
                             </div>
                           </div>
                         ) : (
-                          <h1 className="align-center mt-5 font-bold">
+                         <div className="text-center">
+                          <h1 className="text-3xl">✋</h1>
+                           <h1 className="align-center mt-1 font-bold text-center">
                             Voing in Progress
                           </h1>
+                          </div>
                         )}
                       </div>
                     )}
