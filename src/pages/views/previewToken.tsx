@@ -11,10 +11,12 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import numeral from "numeral";
 import IsSkeletonLoader from "../../components/misc/fallbacks/isSkeletonLoading";
 import { axiosInstance } from "../../axiosInstance";
+import IsNotConnected from "../../components/misc/fallbacks/isNotConnected";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
   const searchParams: string = window.location.search.split("=")[1];
+  const { connected } = useWallet();
   const walletAddress = useWallet().publicKey?.toString();
 
   const fetchAllRequest = async () => {
@@ -70,7 +72,7 @@ const PreviewTokenPage = () => {
           <div className="flex items-center justify-between w-full">
             <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
               {isLoading && <IsSkeletonLoader count={1} />}
-              {isError && 'Failed to Load Name'}
+              {isError && "Failed to Load Name"}
               {data && tokenOverviewResponse?.Name}
             </h1>
           </div>
@@ -121,31 +123,41 @@ const PreviewTokenPage = () => {
               <Card title="📊 Community Sentiment " className="w-full">
                 {/* {isError && <FallBackMessage />} */}
 
-              {
-                isError ? <IsSkeletonLoader/> :  isError  ? <FallBackMessage/> :  <div>
-                {!isVoting ? (
-                   <div className="flex imtes-center gap-3 flex-col text-center">
-                     <div
-                       className="bg-text-white bg-red-900 px-4 
-                     cursor-pointer rounded py-5 font-bold font-semibol "
-                       onClick={() => handlePromiseOnVote()}
-                     >
-                       Red Flag 🚩
-                     </div>
-                     <div
-                       className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
-                       onClick={() => castTokenVote(true)}
-                     >
-                       Bullish 🚀
-                     </div>
-                   </div>
-                 ) : (
-                   <h1 className="align-center mt-5 font-bold">
-                     Voing in Progress
-                   </h1>
-                 )}
-                </div>
-              }
+                {!connected ? (
+                  <IsNotConnected />
+                ) : (
+                  <div>
+                    {isError ? (
+                      <IsSkeletonLoader />
+                    ) : isError ? (
+                      <FallBackMessage />
+                    ) : (
+                      <div>
+                        {!isVoting ? (
+                          <div className="flex imtes-center gap-3 flex-col text-center">
+                            <div
+                              className="bg-text-white bg-red-900 px-4 
+                       cursor-pointer rounded py-5 font-bold font-semibol "
+                              onClick={() => handlePromiseOnVote()}
+                            >
+                              Red Flag 🚩
+                            </div>
+                            <div
+                              className="bg-text-white cursor-pointer bg-green-900 px-4 font-bold rounded py-5 font-semibol "
+                              onClick={() => castTokenVote(true)}
+                            >
+                              Bullish 🚀
+                            </div>
+                          </div>
+                        ) : (
+                          <h1 className="align-center mt-5 font-bold">
+                            Voing in Progress
+                          </h1>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </Card>
             </div>
           </div>
