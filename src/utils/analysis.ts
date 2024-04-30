@@ -8,8 +8,6 @@ import {
 import { OpenOrders } from "@project-serum/serum";
 import BN from "bn.js";
 
-
-
 async function getTokenAccounts(connection: Connection, owner: PublicKey) {
   const tokenResp = await connection.getTokenAccountsByOwner(owner, {
     programId: TOKEN_PROGRAM_ID,
@@ -20,7 +18,7 @@ async function getTokenAccounts(connection: Connection, owner: PublicKey) {
     accounts.push({
       programId: TOKEN_PROGRAM_ID,
       pubkey,
-      accountInfo: SPL_ACCOUNT_LAYOUT.decode(account.data)
+      accountInfo: SPL_ACCOUNT_LAYOUT.decode(account.data),
     });
   }
 
@@ -30,11 +28,14 @@ async function getTokenAccounts(connection: Connection, owner: PublicKey) {
 // raydium pool id can get from api: https://api.raydium.io/v2/sdk/liquidity/mainnet.json
 const SOL_USDC_POOL_ID = "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2";
 const OPENBOOK_PROGRAM_ID = new PublicKey(
-  "srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX"
+  "srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX",
 );
 
 export async function parsePoolInfo() {
-  const connection = new Connection("https://api.mainnet-beta.solana.com", "confirmed");
+  const connection = new Connection(
+    "https://api.mainnet-beta.solana.com",
+    "confirmed",
+  );
   const owner = new PublicKey("VnxDzsZ7chE88e9rB6UKztCt2HUwrkgCTx8WieWf5mM");
 
   const tokenAccounts = await getTokenAccounts(connection, owner);
@@ -47,17 +48,17 @@ export async function parsePoolInfo() {
   const openOrders = await OpenOrders.load(
     connection,
     poolState.openOrders,
-    OPENBOOK_PROGRAM_ID // OPENBOOK_PROGRAM_ID(marketProgramId) of each pool can get from api: https://api.raydium.io/v2/sdk/liquidity/mainnet.json
+    OPENBOOK_PROGRAM_ID, // OPENBOOK_PROGRAM_ID(marketProgramId) of each pool can get from api: https://api.raydium.io/v2/sdk/liquidity/mainnet.json
   );
 
   const baseDecimal = 10 ** poolState.baseDecimal.toNumber(); // e.g. 10 ^ 6
   const quoteDecimal = 10 ** poolState.quoteDecimal.toNumber();
 
   const baseTokenAmount = await connection.getTokenAccountBalance(
-    poolState.baseVault
+    poolState.baseVault,
   );
   const quoteTokenAmount = await connection.getTokenAccountBalance(
-    poolState.quoteVault
+    poolState.quoteVault,
   );
 
   const basePnl = poolState.baseNeedTakePnl.toNumber() / baseDecimal;
@@ -78,7 +79,7 @@ export async function parsePoolInfo() {
   const denominator = new BN(10).pow(poolState.baseDecimal);
 
   const addedLpAccount = tokenAccounts.find((a) =>
-    a.accountInfo.mint.equals(poolState.lpMint)
+    a.accountInfo.mint.equals(poolState.lpMint),
   );
 
   console.log(
@@ -97,6 +98,6 @@ export async function parsePoolInfo() {
     "total lp " + poolState.lpReserve.div(denominator).toString(),
 
     "addedLpAmount " +
-      (addedLpAccount?.accountInfo.amount.toNumber() || 0) / baseDecimal
+      (addedLpAccount?.accountInfo.amount.toNumber() || 0) / baseDecimal,
   );
 }

@@ -16,3 +16,9 @@ export interface ITokenHolders {
   uiAmount: Float32Array;
   percentage: Float32Array;
 }
+
+export interface ICommunitySentiment {
+  tokenAddress: string;
+  sentiment: 'neutral' | 'positive' | 'negative';
+  sentimentScore: number;
+}

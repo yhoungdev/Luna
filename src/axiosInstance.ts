@@ -3,5 +3,5 @@ import { DEFAULTURL } from "./constants";
 
 export const axiosInstance = axios.create({
   baseURL: DEFAULTURL,
-  withCredentials: true,
+  withCredentials: false,
 });
