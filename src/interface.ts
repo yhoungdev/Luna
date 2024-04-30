@@ -19,6 +19,6 @@ export interface ITokenHolders {
 
 export interface ICommunitySentiment {
   tokenAddress: string;
-  sentiment: 'neutral' | 'positive' | 'negative';
+  sentiment: "neutral" | "positive" | "negative";
   sentimentScore: number;
 }

@@ -105,8 +105,6 @@ const PreviewTokenPage = () => {
                 </Card>
 
                 <Card title="📊 Community Sentiment " className="w-full">
-                  {/* {isError && <FallBackMessage />} */}
-
                   {!connected ? (
                     <IsNotConnected />
                   ) : (
@@ -169,7 +167,7 @@ const PreviewTokenPage = () => {
             <div className="flex  gap-4 flex-col md:flex-row mt-5 justify-between">
               <div className=" w-full md:w-[55%]">
                 <Card title="🪙 Risk Analytics ">
-                  <RiskAnalytics />
+                  <RiskAnalytics tokenHoldersResponse={tokenHoldersResponse} tokenAddress={searchParams} />
                 </Card>
               </div>
 
