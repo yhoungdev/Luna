@@ -3,12 +3,6 @@ import { Header } from "../components/layout/header";
 // import FallBackMessage from "../components/misc/fallbacks/isError";
 import { CHECKEDICON, DUSTICON } from "../constants";
 
-{
-  /* <FallBackMessage
-          title="Failed to Load Tokens"
-          description="Trying to Load Tokens please wait..."
-        /> */
-}
 const trash = DUSTICON;
 const correct = CHECKEDICON;
 

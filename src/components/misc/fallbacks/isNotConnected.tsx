@@ -9,7 +9,7 @@ const IsNotConnected = (): JSX.Element => {
           <PiWalletLight size={"1em"} color="white" />{" "}
         </h1>
 
-        <h1 className="text-sm md:text-lg text-center">No Wallet Conneceted</h1>
+        <h1 className="text-sm md:text-lg text-center">No Wallet Connected</h1>
         <small className="text-gray-400">Connect Wallet to Continue</small>
         <div className="mt-3">
           <ConnectWalletButton>Connect Wallet</ConnectWalletButton>

@@ -96,8 +96,7 @@ const PreviewTokenPage = () => {
     <>
       <Header />
       <div className="w-full h-full ">
-        {connected ? (
-          <div className="container py-[1em]">
+      <div className="container py-[1em]">
             <div className="flex items-center justify-between w-full">
               <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
                 {isLoading && <IsSkeletonLoader count={1} />}
@@ -209,10 +208,10 @@ const PreviewTokenPage = () => {
                                 </h1>
                               </a>
                               <h1 className=" text-left">
-                                {Number(value?.percentage).toFixed(3)}
+                                {Number(value?.percentage).toFixed(3)} %
                               </h1>{" "}
                               <h1 className="font-bold">
-                                $ {numeral(value?.uiAmount).format("0, 0a")}
+                                 {numeral(value?.uiAmount).format("0, 0a")}
                               </h1>{" "}
                             </div>
                           );
@@ -224,9 +223,6 @@ const PreviewTokenPage = () => {
               </div>
             </div>
           </div>
-        ) : (
-          <IsNotConnected />
-        )}
       </div>
     </>
   );
