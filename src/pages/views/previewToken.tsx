@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Header } from "../../components/layout/header";
 import Card from "../../components/misc/card";
 import FallBackMessage from "../../components/misc/fallbacks/isError";
@@ -20,11 +20,14 @@ import RiskAnalytics from "./riskAnalytics";
 import GetTokenOverview from "./tokenOverview";
 import { CHECKEDICON, DUSTICON } from "../../constants";
 
+
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
   const searchParams: string = window.location.search.split("=")[1];
   const { connected } = useWallet();
   const walletAddress = useWallet().publicKey?.toString();
+
+
 
   const fetchAllRequest = async () => {
     const requests = [
@@ -84,6 +87,11 @@ const PreviewTokenPage = () => {
       error: "Vote failed",
     });
 
+  const sentimentCheck = sessionStorage.getItem("sentimentCheck") === "true";
+
+  useEffect(() => {
+    document.title = `${tokenOverviewResponse?.Name || "Token Overview"}`;
+  })
   return (
     <>
       <Header />
@@ -120,16 +128,12 @@ const PreviewTokenPage = () => {
                               className="my-2 text-4xl bg-gray-800 p-3 w-fit 
                                rounded-xl mx-auto"
                             >
-                              {sentimentResponse?.sentimentScore === 0
-                                ? DUSTICON
-                                : CHECKEDICON}
+                              {sentimentCheck ? DUSTICON : CHECKEDICON}
                             </h1>
                             <h4
-                              className={`${sentimentResponse?.sentimentScore === 0 ? "text-red-500 " : "text-green-500"} font-bold text-sm mb-3 `}
+                              className={`${sentimentCheck ? "text-red-500 " : "text-green-500"} font-bold text-sm mb-3 `}
                             >
-                              {sentimentResponse?.sentimentScore === 0
-                                ? "TRASH"
-                                : "GOOD"}
+                              {sentimentCheck ? "TRASH" : "GOOD"}
                             </h4>
                           </div>
                           {!isVoting ? (
@@ -167,7 +171,11 @@ const PreviewTokenPage = () => {
             <div className="flex  gap-4 flex-col md:flex-row mt-5 justify-between">
               <div className=" w-full md:w-[55%]">
                 <Card title="🪙 Risk Analytics ">
-                  <RiskAnalytics tokenHoldersResponse={tokenHoldersResponse} tokenAddress={searchParams} />
+                  <RiskAnalytics
+                    tokenSentiment={sentimentResponse?.sentimentScore}
+                    tokenHoldersResponse={tokenHoldersResponse}
+                    tokenAddress={searchParams}
+                  />
                 </Card>
               </div>
 

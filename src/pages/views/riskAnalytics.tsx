@@ -1,7 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from "react";
-import { axiosInstance } from "../../axiosInstance";
-import { RiskThresholds } from "../../enum/analytics";
-import { SearchParamError } from "@tanstack/react-router";
 
 const shit = "🗑️";
 const check = "✅";
@@ -15,11 +13,13 @@ interface TokenHolder {
 interface IProps {
   tokenAddress?: string;
   tokenHoldersResponse?: TokenHolder[];
+  tokenSentiment?: number;
 }
 
 const RiskAnalytics: FC<IProps> = ({
   tokenAddress,
   tokenHoldersResponse,
+  tokenSentiment,
 }): JSX.Element => {
   const findHighestTokenHolder = (
     holders: TokenHolder[],
@@ -35,8 +35,15 @@ const RiskAnalytics: FC<IProps> = ({
     ? findHighestTokenHolder(tokenHoldersResponse)
     : null;
 
+  const isOwnershipConcentrated = tokenHoldersResponse
+    ? tokenHoldersResponse.some((holder) => holder.percentage > 40)
+    : false;
 
-  
+  const isSentimentPositive = tokenSentiment && tokenSentiment >= 50;
+  sessionStorage.setItem(
+    "sentimentCheck",
+    isSentimentPositive ? "true" : "false",
+  );
   return (
     <div className="text-center">
       <h1 className="my-2 text-4xl bg-gray-800 p-3 w-fit rounded-xl mx-auto">
@@ -45,7 +52,18 @@ const RiskAnalytics: FC<IProps> = ({
       <div
         className={`border-2 ${highestHolder ? "border-green-500" : "border-red-500"} py-4`}
       >
-        {highestHolder ? "GOOD" : "BAD"}
+        Highest Holder: {highestHolder ? "GOOD" : "BAD"}
+      </div>
+      <div
+        className={`border-2 ${isOwnershipConcentrated ? "border-red-500" : "border-green-500"} py-4 mt-2`}
+      >
+        Ownership Concentration:{" "}
+        {isOwnershipConcentrated ? "Risky (>40%)" : "Safe"}
+      </div>
+      <div
+        className={`border-2 ${isSentimentPositive ? "border-green-500" : "border-red-500"} py-4 mt-2`}
+      >
+        Community Sentiment: {isSentimentPositive ? "Positive" : "Negative"}
       </div>
     </div>
   );
