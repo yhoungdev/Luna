@@ -13,7 +13,7 @@ import IsSkeletonLoader from "../../components/misc/fallbacks/isSkeletonLoading"
 import { axiosInstance } from "../../axiosInstance";
 import IsNotConnected from "../../components/misc/fallbacks/isNotConnected";
 import { parsePoolInfo } from "../../utils/analysis";
-
+import RiskAnalytics from "./riskAnalytics";
 
 
 const PreviewTokenPage = () => {
@@ -71,7 +71,8 @@ const PreviewTokenPage = () => {
     <>
       <Header />
       <div className="w-full h-full ">
-        <div className="container py-[1em]">
+        {
+          connected ?     <div className="container py-[1em]">
           <div className="flex items-center justify-between w-full">
             <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
               {isLoading && <IsSkeletonLoader count={1} />}
@@ -170,12 +171,13 @@ const PreviewTokenPage = () => {
 
           <div className="flex  gap-4 flex-col md:flex-row mt-5 justify-between">
             <div className=" w-full md:w-[55%]">
-              <Card title="🪙 Token Market Data">
+              <Card title="🪙 Risk Analytics ">
                 {/* {isError && <FallBackMessage />} */}
-                <FallBackMessage
+                {/* <FallBackMessage
                   description="Sorry cant load market data at the momemt"
                   refetchData={() => {}}
-                />
+                /> */}
+                <RiskAnalytics/>
               </Card>
             </div>
 
@@ -223,7 +225,9 @@ const PreviewTokenPage = () => {
               </Card>
             </div>
           </div>
-        </div>
+        </div> : <IsNotConnected/>
+        }
+    
       </div>
     </>
   );
