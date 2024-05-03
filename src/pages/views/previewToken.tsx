@@ -9,6 +9,7 @@ import {
   ICommunitySentiment,
   ITokenHolders,
   ITokenOverview,
+  TokenOverviewResult,
 } from "../../interface";
 import { toast } from "react-toastify";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -20,6 +21,7 @@ import RiskAnalytics from "./riskAnalytics";
 import GetTokenOverview from "./tokenOverview";
 import { CHECKEDICON, DUSTICON } from "../../constants";
 import MarketsViews from "./marketsView";
+import { FaInfoCircle } from "react-icons/fa";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
@@ -32,7 +34,7 @@ const PreviewTokenPage = () => {
       axiosInstance.get<ITokenHolders>(
         `/v3/token-holders/?token=${searchParams}`,
       ),
-      axiosInstance.get<ITokenOverview>(`/v2/token/${searchParams}`),
+      axiosInstance.get<ITokenOverview>(`/v3/token/${searchParams}`),
       axiosInstance.get<ICommunitySentiment>(`/sentiment/${searchParams}`),
     ];
 
@@ -90,6 +92,10 @@ const PreviewTokenPage = () => {
   useEffect(() => {
     document.title = `${tokenOverviewResponse?.Name || "Token Overview"}`;
   });
+
+  const tokenOverviewResult: TokenOverviewResult =
+    tokenOverviewResponse?.result;
+  const tokenContent = tokenOverviewResult?.content;
   return (
     <>
       <Header />
@@ -99,14 +105,28 @@ const PreviewTokenPage = () => {
             <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
               {isLoading && <IsSkeletonLoader count={1} />}
               {isError && "Failed to Load Name"}
-              {data && tokenOverviewResponse?.Name}
+              <div>
+                <img
+                  src={tokenContent?.files[0]?.cdn_uri}
+                  width={50}
+                  height={100}
+                />{" "}
+                <h1 className="mt-1">{data && tokenContent?.metadata?.name}</h1>
+              </div>
             </h1>
           </div>
 
           <div className="mt-4">
             <div className="flex flex-col md:flex-row items-center gap-5 md:gap-[2em] w-full">
-              <Card title="📦 Token Overview" className="w-full">
-                <GetTokenOverview address={searchParams} />
+              <Card
+                title="📦 Token Overview"
+                className="w-full"
+                withMore={<FaInfoCircle cursor={"pointer"} />}
+              >
+                <GetTokenOverview
+                  address={searchParams}
+                  tokenData={tokenOverviewResult}
+                />
               </Card>
 
               <Card title="✅   Community Sentiment " className="w-full">

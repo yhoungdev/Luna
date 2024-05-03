@@ -16,7 +16,6 @@ const MarketsViews = ({ address }: { address: string }) => {
     queryFn: fetchOverview,
   });
 
-  console.log(data);
   return (
     <div className="w-full ">
       {isLoading && <IsSkeletonLoader count={3} />}

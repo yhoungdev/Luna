@@ -1,22 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
 import IsSkeletonLoader from "../../components/misc/fallbacks/isSkeletonLoading";
 import FallBackMessage from "../../components/misc/fallbacks/isError";
-import { axiosInstance } from "../../axiosInstance";
-import { ITokenOverview } from "../../interface";
+import { TokenOverviewResult } from "../../interface";
+import numeral from "numeral";
 
-const GetTokenOverview = ({ address }: { address: string }) => {
-  const fetchOverview = async () => {
-    const response = await axiosInstance<ITokenOverview>(
-      `/v2/token/${address}`,
-    );
-
-    return response?.data;
-  };
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["fetch-token-overview"],
-    queryFn: fetchOverview,
-  });
+interface ITokenOverviewship {
+  address?: string;
+  tokenData: TokenOverviewResult;
+  isLoading?: boolean;
+  isError?: boolean;
+}
+const GetTokenOverview = ({
+  address,
+  tokenData,
+  isLoading,
+  isError,
+}: ITokenOverviewship) => {
+  const tokenInfo = tokenData?.token_info;
 
   return (
     <div>
@@ -28,23 +27,40 @@ const GetTokenOverview = ({ address }: { address: string }) => {
         ) : (
           <div className="flex flex-col gap-3 w-full">
             <div className="flex items-center justify-between w-full">
-              <h1 className="font-bold">Symbol</h1> <h1>{data?.Symbol}</h1>
+              <h1 className="font-bold">Symbol</h1> <h1>{tokenInfo?.symbol}</h1>
             </div>
             <div className="flex items-center justify-between w-full">
               <h1 className="font-bold">Total Suply</h1>{" "}
-              <h1>{data?.TotalSupply}</h1>
+              <h1>{numeral(tokenInfo?.supply).format("0 , 0")}</h1>
             </div>
             <div className="flex items-center justify-between w-full">
-              <h1 className="font-bold">Token Primary Supply</h1>{" "}
-              <h1>{data?.TokenPrimarySaleHappened ? "YES" : "NO"}</h1>
+              <h1 className="font-bold">Token Standard</h1>{" "}
+              <h1>{tokenData?.content?.metadata?.token_standard}</h1>
             </div>
             <div className="flex items-center justify-between w-full">
-              <h1 className="font-bold">Token Url</h1>
-              <a href={data?.TokenURI} target="_blank">
+              <h1 className="font-bold">Market Cap</h1>{" "}
+              <h4>
+                {numeral(tokenInfo?.price_info?.market_cap_usd).format("0,0a")}
+              </h4>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <h1 className="font-bold">Price</h1>
+              <a href={"data?.TokenURI"} target="_blank">
                 <small className="text-yellow-600 font-bold">
-                  {data?.TokenURI?.slice(0, 15)}
-                  .....
-                  {data?.TokenURI?.slice(16, 25)}
+                  ${tokenInfo?.price_info?.price_per_token}
+                </small>
+              </a>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <h1 className="font-bold">Checkup</h1>
+              <a href={"data?.TokenURI"} target="_blank">
+                <small className="text-yellow-600 ">
+                  <a
+                    href={`https://dexscreener.com/solana/${address}`}
+                    target="_blank"
+                  >
+                    {`https://dexscreener.com/solana/${address?.slice(0, 1)}`}
+                  </a>
                 </small>
               </a>
             </div>
