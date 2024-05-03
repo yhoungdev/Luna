@@ -19,6 +19,7 @@ import IsNotConnected from "../../components/misc/fallbacks/isNotConnected";
 import RiskAnalytics from "./riskAnalytics";
 import GetTokenOverview from "./tokenOverview";
 import { CHECKEDICON, DUSTICON } from "../../constants";
+import MarketsViews from "./marketsView";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
@@ -108,7 +109,7 @@ const PreviewTokenPage = () => {
                 <GetTokenOverview address={searchParams} />
               </Card>
 
-              <Card title="📊 Community Sentiment " className="w-full">
+              <Card title="✅   Community Sentiment " className="w-full">
                 {!connected ? (
                   <IsNotConnected />
                 ) : (
@@ -221,13 +222,14 @@ const PreviewTokenPage = () => {
                 )}
               </Card>
             </div>
-            
           </div>
-          
 
-          <div></div>
+          <div className="mt-3">
+            <Card title="📊 Markets">
+              <MarketsViews address={searchParams} />
+            </Card>
+          </div>
         </div>
-        
       </div>
     </>
   );

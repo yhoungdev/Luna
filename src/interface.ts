@@ -22,3 +22,10 @@ export interface ICommunitySentiment {
   sentiment: "neutral" | "positive" | "negative";
   sentimentScore: number;
 }
+
+export interface IMarketView {
+  liquidity_usd: string;
+  pair: string;
+  pair_address: string;
+  dex_id: string;
+}
