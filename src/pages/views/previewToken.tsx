@@ -22,12 +22,18 @@ import GetTokenOverview from "./tokenOverview";
 import { CHECKEDICON, DUSTICON } from "../../constants";
 import MarketsViews from "./marketsView";
 import { FaInfoCircle } from "react-icons/fa";
+import Modal from "../../components/popups/modal";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
   const searchParams: string = window.location.search.split("=")[1];
   const { connected } = useWallet();
   const walletAddress = useWallet().publicKey?.toString();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
 
   const fetchAllRequest = async () => {
     const requests = [
@@ -106,11 +112,11 @@ const PreviewTokenPage = () => {
               {isLoading && <IsSkeletonLoader count={1} />}
               {isError && "Failed to Load Name"}
               <div>
-                <img
+                {data && <img
                   src={tokenContent?.files[0]?.cdn_uri}
                   width={50}
                   height={100}
-                />{" "}
+                />}
                 <h1 className="mt-1">{data && tokenContent?.metadata?.name}</h1>
               </div>
             </h1>
@@ -121,7 +127,7 @@ const PreviewTokenPage = () => {
               <Card
                 title="📦 Token Overview"
                 className="w-full"
-                withMore={<FaInfoCircle cursor={"pointer"} />}
+                withMore={<FaInfoCircle cursor={"pointer"} onClick={openModal} />}
               >
                 <GetTokenOverview
                   address={searchParams}
@@ -250,7 +256,14 @@ const PreviewTokenPage = () => {
             </Card>
           </div>
         </div>
+        
       </div>
+
+      <Modal  isOpen={isOpen} onOpen={openModal} closeModal={closeModal}>
+        <p className="text-gray-800 text-sm">
+        {tokenOverviewResponse?.result?.content?.metadata?.description}
+        </p>
+      </Modal>
     </>
   );
 };
