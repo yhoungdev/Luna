@@ -127,7 +127,7 @@ const PreviewTokenPage = () => {
               <Card
                 title="📦 Token Overview"
                 className="w-full"
-                withMore={<FaInfoCircle cursor={"pointer"} onClick={openModal} />}
+                withMore={data && <FaInfoCircle cursor={"pointer"} onClick={openModal} />}
               >
                 <GetTokenOverview
                   address={searchParams}
