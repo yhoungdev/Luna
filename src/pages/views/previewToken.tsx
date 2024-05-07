@@ -23,6 +23,8 @@ import { CHECKEDICON, DUSTICON } from "../../constants";
 import MarketsViews from "./marketsView";
 import { FaInfoCircle } from "react-icons/fa";
 import Modal from "../../components/popups/modal";
+import { AiOutlineComment } from "react-icons/ai";
+import Button from "../../components/ui/button";
 
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
@@ -30,10 +32,14 @@ const PreviewTokenPage = () => {
   const { connected } = useWallet();
   const walletAddress = useWallet().publicKey?.toString();
   const [isOpen, setIsOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [openAddCommentModal, setOpenAddCommentModal] = useState(false);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
+  const onOpenAddCommentModal = () => setIsAddOpen(true);
+  const closeAddCommentModal = () => setIsAddOpen(false);
 
   const fetchAllRequest = async () => {
     const requests = [
@@ -112,14 +118,31 @@ const PreviewTokenPage = () => {
               {isLoading && <IsSkeletonLoader count={1} />}
               {isError && "Failed to Load Name"}
               <div>
-                {data && <img
-                  src={tokenContent?.files[0]?.cdn_uri}
-                  width={50}
-                  height={100}
-                />}
+                {data && (
+                  <img
+                    src={tokenContent?.files[0]?.cdn_uri}
+                    width={50}
+                    height={100}
+                  />
+                )}
                 <h1 className="mt-1">{data && tokenContent?.metadata?.name}</h1>
               </div>
             </h1>
+
+            <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2 bg-gray-800 rounded-md px-3 py-2 cursor-pointer"
+                onClick={onOpenAddCommentModal}
+              >
+                <AiOutlineComment />
+                <h1>Add Comment</h1>
+              </div>
+
+              <div className="flex items-center gap-2 bg-gray-800 rounded-md px-3 py-2 cursor-pointer">
+                👀
+                <h1>Add Comment</h1>
+              </div>
+            </div>
           </div>
 
           <div className="mt-4">
@@ -127,7 +150,11 @@ const PreviewTokenPage = () => {
               <Card
                 title="📦 Token Overview"
                 className="w-full"
-                withMore={data && <FaInfoCircle cursor={"pointer"} onClick={openModal} />}
+                withMore={
+                  data && (
+                    <FaInfoCircle cursor={"pointer"} onClick={openModal} />
+                  )
+                }
               >
                 <GetTokenOverview
                   address={searchParams}
@@ -256,13 +283,28 @@ const PreviewTokenPage = () => {
             </Card>
           </div>
         </div>
-        
       </div>
 
-      <Modal  isOpen={isOpen} onOpen={openModal} closeModal={closeModal}>
+      <Modal isOpen={isOpen} onOpen={openModal} closeModal={closeModal}>
         <p className="text-gray-800 text-sm">
-        {tokenOverviewResponse?.result?.content?.metadata?.description}
+          {tokenOverviewResponse?.result?.content?.metadata?.description}
         </p>
+      </Modal>
+
+      <Modal
+        isOpen={isAddOpen}
+        onOpen={onOpenAddCommentModal}
+        closeModal={closeModal}
+      >
+        <div className="text-black">
+          <h1 className="font-bold">Add Comment</h1>
+
+          <form action="" className="mt-4 flex flex-col gap-2">
+
+            <textarea type="text" placeholder="Add Comment" className="border px-2 py-2 rounded-md outline-green-500" />
+            <Button className="mt-2">Comment</Button>
+          </form>
+        </div>
       </Modal>
     </>
   );

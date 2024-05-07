@@ -32,10 +32,14 @@ const MarketsViews = ({ address }: { address: string }) => {
           </div>
 
           <div className="flex text-sm items-center w-full mt-3 text-left pl-3">
-            <h1 className="text-left flex-1">{numeral(data?.liquidity_usd).format('0 ,0a')}</h1>
-            <h1 className="text-left flex-1 text-yellow-600 font-semibold">{data?.pair}</h1>
+            <h1 className="text-left flex-1">
+              {numeral(data?.liquidity_usd).format("0 ,0a")}
+            </h1>
+            <h1 className="text-left flex-1 text-yellow-600 font-semibold">
+              {data?.pair}
+            </h1>
             {/* <img src="/assets/raydium.png" width={100} alt="" /> */}
-            <h1 className="font-bold flex-1">  {data?.dex_id}</h1>
+            <h1 className="font-bold flex-1"> {data?.dex_id}</h1>
           </div>
         </div>
       )}

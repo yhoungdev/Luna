@@ -4,6 +4,7 @@ import Button from "../ui/button";
 
 interface IModal {
   isOpen: boolean;
+  withButton?: boolean;
   children: React.ReactNode;
   onOpen: () => void;
   closeModal: () => void;
@@ -13,11 +14,11 @@ const Modal: FC<IModal> = ({
   isOpen,
   children,
   onOpen,
+  withButton,
   closeModal,
 }: IModal): JSX.Element => {
   return (
     <>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -47,18 +48,16 @@ const Modal: FC<IModal> = ({
                   <Dialog.Title
                     as="h3"
                     className=" leading-6 text-gray-900"
-                  >
-                    
-                  </Dialog.Title>
-                  <div className="mt-2 text-satoshi">
-                    {children}
-                  </div>
+                  ></Dialog.Title>
+                  <div className="mt-2 text-satoshi">{children}</div>
 
-                  <div className="mt-4">
-                    <center>
-                    <Button onClick={closeModal}>Ok, Got It !</Button>
-                    </center>
-                  </div>
+                  {withButton && (
+                    <div className="mt-4">
+                      <center>
+                        <Button onClick={closeModal}>Ok, Got It !</Button>
+                      </center>
+                    </div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
