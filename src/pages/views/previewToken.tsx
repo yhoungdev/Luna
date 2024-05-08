@@ -30,7 +30,6 @@ import supabase from "../../utils/supabase";
 import ViewComments from "./viewComments";
 import Drawer from "../../components/layout/drawer";
 
-
 const PreviewTokenPage = () => {
   const [isVoting, setIsVoting] = useState<false>(false);
   const searchParams: string = window.location.search.split("=")[1];
@@ -123,9 +122,8 @@ const PreviewTokenPage = () => {
     };
     event.preventDefault();
     const { error } = await supabase.from("token_comments").insert(payload);
-
-    if (err) toast.error("Error inserting comment");
-    toast.success('Comment added successfully');
+    if (error) return toast.error("Error inserting comment");
+    toast.success("Comment added successfully");
     setIsAddOpen(false);
   };
 
@@ -133,7 +131,6 @@ const PreviewTokenPage = () => {
     const value = event.target.value;
     setCommentData(value);
   };
-
 
   const [comments, setComments] = useState<CommentProps>();
   const fetchTokenComments = async () => {
@@ -151,15 +148,15 @@ const PreviewTokenPage = () => {
   };
 
   const checkUserCommentPresence = (comments) => {
-    const userCommentExists = comments.some( (comments: CommentProps) => comments.wallet_address ===  walletAddress);
-    setIsCommentPresent(userCommentExists)
+    const userCommentExists = comments.some(
+      (comments: CommentProps) => comments.wallet_address === walletAddress,
+    );
+    setIsCommentPresent(userCommentExists);
   };
 
   useEffect(() => {
     fetchTokenComments();
-  }, [searchParams , checkUserCommentPresence]);
-
-
+  }, [searchParams, checkUserCommentPresence]);
 
   const ViewCommentCaller = () => (
     <div className="flex items-center w-[fit-content] gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer">
@@ -170,8 +167,6 @@ const PreviewTokenPage = () => {
       </span>
     </div>
   );
-  
-
 
   return (
     <>
@@ -194,19 +189,27 @@ const PreviewTokenPage = () => {
               </div>
             </h1>
 
-            <div className="flex items-center flex-wrap gap-2">
-              {
-                !isCommentPresent && <div
-                className="flex items-center  gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer"
-                onClick={onOpenAddCommentModal}
-              >
-                <AiOutlineComment size={'1.5em'} />
-                <small>Comment </small>
-              </div>
-              }
+            <div className="flex items-center flex-col md:flex-row gap-2">
+              {connected && (
+                <>
+                  {!isCommentPresent && (
+                    <div
+                      className="flex items-center  gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer"
+                      onClick={onOpenAddCommentModal}
+                    >
+                      <AiOutlineComment size={"1.5em"} />
+                      <small>Comment </small>
+                    </div>
+                  )}
+                </>
+              )}
 
               <Drawer actionBlock={<ViewCommentCaller />}>
-                <ViewComments  data={comments} tokenAddress={searchParams} />
+                <ViewComments
+                  ownComment={isCommentPresent}
+                  data={comments}
+                  tokenAddress={searchParams}
+                />
               </Drawer>
             </div>
           </div>
@@ -351,7 +354,12 @@ const PreviewTokenPage = () => {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onOpen={openModal} closeModal={closeModal}>
+      <Modal
+        isOpen={isOpen}
+        onOpen={openModal}
+        header={tokenContent?.metadata?.name ?? ""}
+        closeModal={closeModal}
+      >
         <p className="text-gray-800 text-sm">
           {tokenOverviewResponse?.result?.content?.metadata?.description}
         </p>
@@ -377,7 +385,7 @@ const PreviewTokenPage = () => {
               onChange={(e) => handleFormChange(e)}
               required
             />
-            <Button className="mt-2" >Comment</Button>
+            <Button className="mt-2">Comment</Button>
           </form>
         </div>
       </Modal>
