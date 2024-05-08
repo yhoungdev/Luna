@@ -119,3 +119,11 @@ interface PriceInfo {
   total_liquidity_usd: number;
   market_cap_usd: number;
 }
+
+export interface CommentProps {
+  id: number;
+  created_at: string;
+  wallet_address: string;
+  comment: string;
+  token_address: string;
+}
