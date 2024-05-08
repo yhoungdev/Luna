@@ -1,6 +1,4 @@
 import { CommentProps } from "../../interface";
-import supabase from "../../utils/supabase";
-import { useEffect, useState } from "react";
 
 const ViewComments = ({ data }: { data: any }) => {
   
@@ -12,7 +10,7 @@ const ViewComments = ({ data }: { data: any }) => {
         {data &&
           data?.map((comment: CommentProps, index) => {
             return (
-              <div key={index} className="bg-gray-800 py-3 px-4 rounded-md">
+              <div key={index} className="bg-gray-800 py-3 px-4 rounded-md mt-2">
                 <div className="flex items-center gap-2">
                   <div className="avatar">
                     <div className="w-10 rounded-xl">
@@ -20,11 +18,11 @@ const ViewComments = ({ data }: { data: any }) => {
                     </div>
                   </div>
                   <small>
-                    {comment.wallet_address.slice(0, 4)}....
-                    {comment.wallet_address.slice(4, 10)}
+                    {comment?.wallet_address?.slice(0, 4)}....
+                    {comment?.wallet_address?.slice(4, 10)}
                   </small>
                 </div>
-                <h1 className="mt-2">{comment.comment}</h1>
+                <h1 className="mt-2">{comment?.comment}</h1>
               </div>
             );
           })}
