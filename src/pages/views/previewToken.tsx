@@ -159,10 +159,10 @@ const PreviewTokenPage = () => {
   }, [searchParams, checkUserCommentPresence]);
 
   const ViewCommentCaller = () => (
-    <div className="flex items-center w-[fit-content] gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer">
+    <div className="flex  w-[180px] items-center gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer">
       👀
       <small>All Comments</small>
-      <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+      <span class="inline-flex  justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
         {comments?.length}
       </span>
     </div>
@@ -173,7 +173,7 @@ const PreviewTokenPage = () => {
       <Header />
       <div className="w-full h-full ">
         <div className="container py-[1em]">
-          <div className="flex items-center justify-between w-full">
+          <div className="flex  justify-between w-full flex-wrap gap-2">
             <h1 className="gradient-text text-2xl md:text-4xl w-full md:w-[30%]">
               {isLoading && <IsSkeletonLoader count={1} />}
               {isError && "Failed to Load Name"}
@@ -182,19 +182,19 @@ const PreviewTokenPage = () => {
                   <img
                     src={tokenContent?.files[0]?.cdn_uri}
                     width={50}
-                    height={100}
+                    height={80}
                   />
                 )}
                 <h1 className="mt-1">{data && tokenContent?.metadata?.name}</h1>
               </div>
             </h1>
 
-            <div className="flex items-center flex-col md:flex-row gap-2">
+            <div className="flex  gap-3 ">
               {connected && (
                 <>
                   {!isCommentPresent && (
                     <div
-                      className="flex items-center  gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer"
+                      className="flex  w-full h-fit items-center  gap-2 text-white bg-gray-800 rounded-md px-2 py-2 cursor-pointer"
                       onClick={onOpenAddCommentModal}
                     >
                       <AiOutlineComment size={"1.5em"} />
@@ -215,7 +215,7 @@ const PreviewTokenPage = () => {
           </div>
 
           <div className="mt-4">
-            <div className="flex flex-col md:flex-row items-center gap-5 md:gap-[2em] w-full">
+            <div className="flex flex-col md:flex-row  gap-5 md:gap-[2em] w-full">
               <Card
                 title="📦 Token Overview"
                 className="w-full"
@@ -287,7 +287,8 @@ const PreviewTokenPage = () => {
             </div>
           </div>
 
-          <div className="flex  gap-4 flex-col md:flex-row mt-5 justify-between">
+          <div className="flex bg-red-600 h-full  gap-4 flex-col md:flex-row mt-5 justify-between">
+              
             <div className=" w-full md:w-[55%]">
               <Card title="🪙 Risk Analytics ">
                 <RiskAnalytics
@@ -303,8 +304,8 @@ const PreviewTokenPage = () => {
                 {isLoading && <IsSkeletonLoader />}
                 {isError && <FallBackMessage />}
                 {tokenHoldersResponse && (
-                  <div className="flex flex-col items-center justify-between w-full overflow-x-auto h-[300px]">
-                    <div className="flex items-center justify-between w-full mb-4">
+                  <div className="flex flex-col  justify-between w-full overflow-x-auto h-[300px]">
+                    <div className="flex  justify-between w-full mb-4">
                       <h1 className="font-bold flex-1 text-left pl-4">
                         Address
                       </h1>
@@ -317,7 +318,7 @@ const PreviewTokenPage = () => {
                       (value: ITokenHolders, index: number) => {
                         return (
                           <div
-                            className="flex text-sm items-center w-full mt-3 text-left"
+                            className="flex text-sm  w-full mt-3 text-left"
                             key={index}
                           >
                             <a
@@ -385,37 +386,10 @@ const PreviewTokenPage = () => {
               onChange={(e) => handleFormChange(e)}
               required
             />
-            <Button className="mt-2">Comment</Button>
+            <Button className="mt-2">  Comment</Button>
           </form>
         </div>
       </Modal>
-
-      {/* <div className="drawer drawer-end">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          <label
-            htmlFor="my-drawer-4"
-            className="drawer-button btn btn-primary"
-          >
-            Open drawer
-          </label>
-        </div>
-        <div className="drawer-side">
-          <label
-            htmlFor="my-drawer-4"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
-          </ul>
-        </div>
-      </div> */}
     </>
   );
 };

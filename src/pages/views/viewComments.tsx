@@ -23,7 +23,7 @@ const ViewComments = ({
                 <div className="flex items-center gap-2">
                   <div className="avatar">
                     <div className="w-10 rounded-xl">
-                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                      <img src="https://api.dicebear.com/8.x/identicon/svg" />
                     </div>
                   </div>
                   <small>
