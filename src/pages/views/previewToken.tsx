@@ -287,10 +287,10 @@ const PreviewTokenPage = () => {
             </div>
           </div>
 
-          <div className="flex bg-red-600 h-full  gap-4 flex-col md:flex-row mt-5 justify-between">
+          <div className="flex  h-full  gap-4 flex-col md:flex-row mt-5 justify-between">
               
-            <div className=" w-full md:w-[55%]">
-              <Card title="🪙 Risk Analytics ">
+            <div className=" w-full md:w-[55%] ">
+              <Card title="🪙 Risk Analytics " className="h-full">
                 <RiskAnalytics
                   tokenSentiment={sentimentResponse?.sentimentScore}
                   tokenHoldersResponse={tokenHoldersResponse}

@@ -15,7 +15,7 @@ const Card: FC<ICardProps> = ({
   ...rest
 }: ICardProps): React.JSX.Element => {
   const classData = `text-satoshi bg-transparet backdrop-blur-md 
-    py-3 md:py-[3em] md:px-[3em] px-5 rounded-lg border-1 border-2  ${className}`;
+    py-3 md:py-[3em] md:px-[3em]  px-5 rounded-lg border-1 border-2  ${className}`;
   return (
     <div className={classData} {...rest}>
       {title && (
