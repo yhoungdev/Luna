@@ -30,7 +30,7 @@ const GetTokenOverview = ({
               <h1 className="font-bold">Symbol</h1> <h1>{tokenInfo?.symbol}</h1>
             </div>
             <div className="flex items-center justify-between w-full">
-              <h1 className="font-bold">Total Suply</h1>{" "}
+              <h1 className="font-bold">Total Supply</h1>{" "}
               <h1>{numeral(tokenInfo?.supply).format("0 , 0")}</h1>
             </div>
             <div className="flex items-center justify-between w-full">

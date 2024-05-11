@@ -326,7 +326,8 @@ const PreviewTokenPage = () => {
                               target="_blank"
                               className="flex-1"
                             >
-                              <h1 className="font-semibold text-yellow-500 bg-gray-800 p-1 w-fit px-3">
+                              <h1 className="font-semibold text-yellow-500 bg-gray-800 p-1 w-fit
+                                 px-3 text-sm roboto-mono" >
                                 {value?.address.slice(0, 4)}...
                                 {value?.address.slice(-5)}
                               </h1>
